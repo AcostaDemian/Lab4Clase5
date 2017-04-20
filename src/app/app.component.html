@@ -1,0 +1,24 @@
+<div *ngIf="log"> 
+  <h1>Ingrese Datos</h1>
+  <form (ngSubmit)="login()">
+    <input type="text" name="nombre" [(ngModel)]="form.nombre" ngModel required>
+    <input type="text" name="apellido" [(ngModel)]="form.apellido" ngModel required>
+    <input type="submit">
+  </form>
+</div>
+
+<div *ngIf="!log"> 
+  <h1>BIENVENIDO {{form.nombre}}</h1>
+  <form (ngSubmit)="logout()">
+    <input type="submit">
+  </form>
+  <!--
+  <ul *ngFor="let persona of personas;let i= index">  first|last 
+    {{i}}
+    {{persona.nombre}}
+    {{persona.apellido}}
+    {{persona.edad}}
+  </ul>
+  -->
+  <ng2-smart-table [settings]="settings" [source]="personas"></ng2-smart-table>
+</div>
