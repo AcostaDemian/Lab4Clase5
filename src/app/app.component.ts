@@ -11,6 +11,7 @@ export class AppComponent {
   log=true;
 
   settings = {
+    
     columns: {
       nombre: {
         title: 'Nombre'
@@ -19,11 +20,28 @@ export class AppComponent {
         title: 'Apellido'
       },
       edad: {
-        title: 'Edad'
+        title: 'Edad',
+        editable:false,
+        sortDirection:"desc",
       }
-    }
+    },
+    pager:{
+      perPage:2
+    },
+    add:{
+      confirmCreate:true
+    },
+    edit:{
+      editButtonContent:"Editar",
+      saveButtonContent:"Guardar",
+      cancelButtonContent:"Cancelar",
+      confirmSave:true
+    },
+    noDataMessage:"No se encontraron datos",
+    sort:true,
   };
 
+ 
   personas:Array<persona>=[];
   
 
@@ -35,16 +53,37 @@ export class AppComponent {
       new persona("ddd","ddd",44),
     ];
     this.personas.push(new persona("ttt","ttt",55));
-  }
+    //this.personas=[]
+    console.log(this.personas);
+  } 
+
+  source = {
+    load: this.personas,
+  };
+
 
   login(){
-    console.log(this.form);
     this.log=false;
   }
 
   logout(){
     this.form={};
     this.log=true;
+  }
+
+  create(){
+    console.log(this.personas);
+  }	
+
+  edit(){
+    alert("aaaaaaaaah");
+  }
+
+  editConfirm(evento){
+    this.personas=evento.source.data;
+    console.log(evento);
+    console.log(this.personas);
+    evento.confirm.resolve();
   }
 }
 

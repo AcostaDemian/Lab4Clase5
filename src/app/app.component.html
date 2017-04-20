@@ -20,5 +20,5 @@
     {{persona.edad}}
   </ul>
   -->
-  <ng2-smart-table [settings]="settings" [source]="personas"></ng2-smart-table>
+  <ng2-smart-table [settings]="settings" [source]="source" (createConfirm)="create()" (edit)="edit()" (editConfirm)="editConfirm($event)"></ng2-smart-table>
 </div>
