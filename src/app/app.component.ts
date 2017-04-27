@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { DatosService } from './services/datos.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,20 +15,26 @@ export class AppComponent {
   settings = {
     
     columns: {
-      nombre: {
+      name: {
         title: 'Nombre'
       },
-      apellido: {
-        title: 'Apellido'
+      nativeName: {
+        title: 'Nombre Nativo'
       },
-      edad: {
-        title: 'Edad',
+      region:{
+        title: 'Region'
+      },
+      population:{
+        title:'Poblacion'
+      },
+      numericCode: {
+        title: 'Codigo Numerico',
         editable:false,
         sortDirection:"desc",
       }
     },
     pager:{
-      perPage:2
+      perPage:10
     },
     add:{
       confirmCreate:true
@@ -39,13 +47,20 @@ export class AppComponent {
     },
     noDataMessage:"No se encontraron datos",
     sort:true,
+    actions:{
+      add:false,
+      edit:false,
+      delete:false
+    }
   };
 
  
   personas:Array<persona>=[];
+  paises:Array<any>=[];
+
   
 
-  constructor(){
+  constructor(private datos:DatosService){
     this.personas=[
       new persona("aaa","aaa",11),
       new persona("bbb","bbb",22),
@@ -55,10 +70,15 @@ export class AppComponent {
     this.personas.push(new persona("ttt","ttt",55));
     //this.personas=[]
     console.log(this.personas);
+    datos.traerDatos()
+      .then(data =>{ this.paises =data
+    console.log(this.paises); })
+      .catch(error =>{ console.log(error) });
+    console.log(this.paises);
   } 
 
   source = {
-    load: this.personas,
+    load: this.paises,
   };
 
 
