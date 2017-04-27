@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 
 import { DatosService } from './services/datos.service';
 
+import { LocalDataSource } from 'ng2-smart-table';
+//Tomar datos del smartTable
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,8 +16,13 @@ export class AppComponent {
   form={};
   log=true;
 
+  /*source = {
+    load: this.paises,
+  };*/
+
+  source: LocalDataSource = new LocalDataSource();
+
   settings = {
-    
     columns: {
       name: {
         title: 'Nombre'
@@ -53,12 +62,9 @@ export class AppComponent {
       delete:false
     }
   };
-
  
   personas:Array<persona>=[];
   paises:Array<any>=[];
-
-  
 
   constructor(private datos:DatosService){
     this.personas=[
@@ -76,10 +82,6 @@ export class AppComponent {
       .catch(error =>{ console.log(error) });
     console.log(this.paises);
   } 
-
-  source = {
-    load: this.paises,
-  };
 
 
   login(){
